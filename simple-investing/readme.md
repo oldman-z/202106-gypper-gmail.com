@@ -1,14 +1,31 @@
-# Read Me First
-The following was discovered as part of building this project:
+# 개 요
+ 
+* project   : 카카오페이 서버 개발 과제
+* framework : Spring Boot 2.4.7
+* sdk       : JDK 1.8
+* database  : h2 Database
 
-* The original package name 'kakaopay.simple-invest' is invalid and this project uses 'kakaopay.simpleinvest' instead.
+# 프로그램 시작
 
-# Getting Started
+### 실행
+`kakaopay.investing.SimpleInvestingApplication`
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### DB 생성 및 기본 자료 등록
+최초 실행 시 initialization-mode: always 로 설정하여 DB 를 설정함
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.8-SNAPSHOT/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.8-SNAPSHOT/maven-plugin/reference/html/#build-image)
+    datasource:
+      initialization-mode: never
+      schema: classpath:h2/schema.sql
+      data: classpath:h2/data.sql
+      hikari:
+        jdbc-url: jdbc:h2:~/testdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password:
+
+DB 생성 스크립트 참조
+
+     schema: classpath:h2/schema.sql
+     data: classpath:h2/data.sql
+
 
