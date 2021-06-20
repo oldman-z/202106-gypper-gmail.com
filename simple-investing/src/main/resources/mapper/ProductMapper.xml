@@ -16,7 +16,9 @@
 	      ,FORMATDATETIME(p.started_at, 'yyyy-MM-dd HH:mm:dd') started_at
 	      ,FORMATDATETIME(p.finished_at, 'yyyy-MM-dd HH:mm:dd') finished_at
 	      ,p.last_tid
-	FROM product p
+	 FROM product p
+	WHERE CURRENT_TIMESTAMP >= p.started_at 
+      AND CURRENT_TIMESTAMP <= p.finished_at
 	]]>
 	</select>
 

@@ -25,7 +25,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getAllProducts() throws Exception {
 		
-		return productMapper.selectAllProducts();
+		List<Product> products = productMapper.selectAllProducts();
+		
+		if(products.isEmpty()) {
+			throw new NotFoundException();
+		}
+		
+		return products;
 	}
 
 	@Override
