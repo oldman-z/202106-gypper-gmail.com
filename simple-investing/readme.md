@@ -1,3 +1,4 @@
+
 # 개 요
  
 * project   : 카카오페이 서버 개발 과제
@@ -60,6 +61,12 @@
 | result_message   | varchar(100) | 결과메세지      |
 
 # API 정보
+### API 공통
+Host: http://localhost:8080
+Content-Type: application/json
+사용자 인증 http header 셋팅 
+X-USER-ID: {사용자ID (숫자)}
+
 ### API 목록
 
 | No. | API name | URI | method | remark |
@@ -69,12 +76,58 @@
 | 3   |내투자내역조회 |/investment/invest     |GET        |        |
 
 ### API 상세
-| No. |   |   |   |   |
-|-----|---|---|---|---|
-| 1   |   |   |   |   |
-| 2   |   |   |   |   |
-| 3   |   |   |   |   |
+1. 전체상품목록 조회
 
+         header 사용자 ID 외 없음
+
+2. 상품 투자
+  Request
+
+| No. | parameter name | type | option | descripton |
+|-----|----------|-----|--------|--------|
+| 1   |product_id  |number     |M       |상품ID|
+| 2   |investing_amount     |number    |M        |투자금액        |
+| 3   | |    |       |        |
+       
+         {
+	          "product_id": 1,
+	          "investing_amount": 100
+          }
+
+   Response
+
+| No. | parameter name | type | option | descripton |
+|-----|----------|-----|--------|--------|
+| 1   |status  |string|M       ||
+| 2   |code     |string|M        |        |
+| 3   |message|    |string       |        |
+
+         {
+              "status": 200,
+              "code": "0000",
+              "message": "정상"
+         }   
+
+   Prameter error
+
+         {
+              "status": 400,
+              "code": "E000",
+              "message": "요청 인자 유효성 오류",
+              "errors": [
+                              {
+		                          "field": "Positive.investment.investingAmount",
+		                          "value": 0,
+		                          "reason": "0보다 커야 합니다"
+		                      },
+		                      {
+		                           "field": "Min.investment.investingAmount",
+		                           "value": 0,
+		                           "reason": "최소값 1"
+		                     }
+		                   ]
+         }   
+  
 # 코드 내용
 ### 사용자 인증
 Interceptor 로 처리하여 http header 값을 인증함
